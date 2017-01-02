@@ -16,6 +16,7 @@
 package com.example.bruno.qrcodereader;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
 import android.view.View;
@@ -78,7 +79,7 @@ public class GraphicOverlay<T extends GraphicOverlay.Graphic> extends View {
          *
          * @param canvas drawing canvas
          */
-        public abstract void draw(Canvas canvas);
+        public abstract void draw(Canvas canvas, Resources resources);
 
         /**
          * Adjusts a horizontal value of the supplied value from the preview scale to the view
@@ -205,7 +206,7 @@ public class GraphicOverlay<T extends GraphicOverlay.Graphic> extends View {
             }
 
             for (Graphic graphic : mGraphics) {
-                graphic.draw(canvas);
+                graphic.draw(canvas, getResources());
             }
         }
     }

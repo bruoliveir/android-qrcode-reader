@@ -26,7 +26,7 @@ import com.google.android.gms.vision.barcode.BarcodeDetector;
 import java.io.IOException;
 
 public class BarcodeCaptureActivity extends AppCompatActivity {
-    private static final String TAG = "Barcode-reader";
+    private static final String TAG = "BarcodeCaptureActivity";
 
     // intent request code to handle updating play services if needed.
     private static final int RC_HANDLE_GMS = 9001;
@@ -43,11 +43,11 @@ public class BarcodeCaptureActivity extends AppCompatActivity {
         super.onCreate(icicle);
         setContentView(R.layout.activity_barcode_capture);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         mPreview = (CameraSourcePreview) findViewById(R.id.preview);
         mGraphicOverlay = (GraphicOverlay<BarcodeGraphic>) findViewById(R.id.graphicOverlay);
 
-        // Check for the camera permission before accessing the camera.  If the
-        // permission is not granted yet, request permission.
         int rc = ActivityCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA);
         if (rc == PackageManager.PERMISSION_GRANTED) {
             createCameraSource();
@@ -106,8 +106,8 @@ public class BarcodeCaptureActivity extends AppCompatActivity {
 
         CameraSource.Builder builder = new CameraSource.Builder(getApplicationContext(), barcodeDetector)
                 .setFacing(CameraSource.CAMERA_FACING_BACK)
-                .setRequestedPreviewSize(1600, 1024)
-                .setRequestedFps(15.0f);
+                .setAutoFocusEnabled(true)
+                .setRequestedFps(60.0f);
 
         mCameraSource = builder.build();
     }
